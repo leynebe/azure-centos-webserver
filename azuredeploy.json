@@ -105,6 +105,20 @@
               "priority": 200,
               "direction": "Inbound"
             }
+          },
+          {
+            "name": "http",
+            "properties": {
+              "description": "Allow HTTP",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "80",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 201,
+              "direction": "Inbound"
+            }
           }
         ]
       }
@@ -175,7 +189,7 @@
         "publicIPAddressVersion": "IPv4",
         "dnsSettings": {
           "domainNameLabel": "[variables('dnsNameForPublicIP')]",
-          "fqdn": "westeurope.cloudapp.azure.com",
+          "fqdn": "westeurope.cloudapp.azure.com"
         },
         "idleTimeoutInMinutes": "4"
       }
@@ -231,20 +245,20 @@
     },
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[variables('initScriptName')]",
+      "name": "[concat(variables('vmName'), '/', variables('initScriptName'))]",
       "apiVersion": "2015-06-15",
       "location": "[resourceGroup().location]",
       "dependsOn": [
         "[concat('Microsoft.Compute/virtualMachines/', variables('vmName'))]"
       ],
       "properties": {
-        "publisher": "Microsoft.Compute",
-        "type": "CustomScriptExtension",
-        "typeHandlerVersion": "2.0",
+        "publisher": "Microsoft.OSTCExtensions",
+        "type": "CustomScriptForLinux",
+        "typeHandlerVersion": "1.5",
         "autoUpgradeMinorVersion": true,
         "settings": {
           "fileUris": [
-            "https://raw.githubusercontent.com"
+            "https://raw.githubusercontent.com/leynebe/azure-centos-webserver/master/scripts/installWebserver.sh"
           ],
           "commandToExecute": "[concat( 'sh installWebserver.sh ', toUpper(substring(variables('globalName'),0,1)), toLower(substring(variables('globalName'),1)) )]"
         }
