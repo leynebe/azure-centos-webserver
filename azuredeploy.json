@@ -11,9 +11,9 @@
     },
     "adminPassword": {
       "type": "securestring",
-      "defaultValue": "@Password123!",
+      "defaultValue": "[concat('Password@', uniquestring(resourceGroup().id)))]",
       "metadata": {
-        "description": "Password for the Virtual Machine. Default value is '@Password123!'"
+        "description": "Password for the Virtual Machine. Default value is ''"
       }
     },
     "imagePublisher": {
