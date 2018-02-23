@@ -46,7 +46,7 @@
     }
   },
   "variables": {
-    "globalName": "ben",
+    "globalName": "ben2",
     
     "publicIpName": "[tolower(concat(variables('globalName'), '-ip-', uniquestring(resourceGroup().id)))]",
     "dnsNameForPublicIP": "[tolower(concat('dns', uniquestring(resourceGroup().id)))]",
@@ -151,6 +151,7 @@
       "location": "[variables('location')]",
       "dependsOn": [
         "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]",
+        "[concat('Microsoft.Network/publicIPAddresses/', variables('publicIpName'))]",
         "[variables('networkSecurityGroupName')]"
       ],
       "properties": {
