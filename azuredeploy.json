@@ -47,6 +47,7 @@
   },
   "variables": {
     "globalName": "ben2",
+    "creator": "BenLeynen",
     
     "publicIpName": "[tolower(concat(variables('globalName'), '-ip-', uniquestring(resourceGroup().id)))]",
     "dnsNameForPublicIP": "[tolower(concat('dns', uniquestring(resourceGroup().id)))]",
@@ -81,6 +82,9 @@
       "name": "[variables('storageAccountName')]",
       "apiVersion": "2015-05-01-preview",
       "location": "[variables('location')]",
+      "tags": {
+        "creator": "[variables('creator')]"
+      },
       "properties": {
         "accountType": "[variables('storageAccountType')]"
       }
@@ -90,6 +94,9 @@
       "type": "Microsoft.Network/networkSecurityGroups",
       "name": "[variables('networkSecurityGroupName')]",
       "location": "[resourceGroup().location]",
+      "tags": {
+        "creator": "[variables('creator')]"
+      },
       "properties": {
         "securityRules": [
           {
@@ -128,6 +135,9 @@
       "type": "Microsoft.Network/virtualNetworks",
       "name": "[variables('virtualNetworkName')]",
       "location": "[variables('location')]",
+      "tags": {
+        "creator": "[variables('creator')]"
+      },
       "properties": {
         "addressSpace": {
           "addressPrefixes": [
@@ -149,6 +159,9 @@
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[variables('nicName')]",
       "location": "[variables('location')]",
+      "tags": {
+        "creator": "[variables('creator')]"
+      },
       "dependsOn": [
         "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]",
         "[concat('Microsoft.Network/publicIPAddresses/', variables('publicIpName'))]",
@@ -180,7 +193,7 @@
       "name": "[variables('publicIpName')]",
       "location": "[variables('location')]",
       "tags": {
-        "key1": "value1"
+        "creator": "[variables('creator')]"
       },
       "sku": {
         "name": "Basic"
@@ -200,6 +213,9 @@
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[variables('vmName')]",
       "location": "[variables('location')]",
+      "tags": {
+        "creator": "[variables('creator')]"
+      },
       "dependsOn": [
         "[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
         "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]"
@@ -249,6 +265,9 @@
       "name": "[concat(variables('vmName'), '/', variables('initScriptName'))]",
       "apiVersion": "2015-06-15",
       "location": "[resourceGroup().location]",
+      "tags": {
+        "creator": "[variables('creator')]"
+      },
       "dependsOn": [
         "[concat('Microsoft.Compute/virtualMachines/', variables('vmName'))]"
       ],
