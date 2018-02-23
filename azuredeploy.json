@@ -46,7 +46,7 @@
     }
   },
   "variables": {
-    "globalName": "ben2",
+    "globalName": "webserver",
     "creator": "BenLeynen",
     
     "publicIpName": "[tolower(concat(variables('globalName'), '-ip-', uniquestring(resourceGroup().id)))]",
