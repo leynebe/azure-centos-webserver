@@ -284,5 +284,11 @@
         }
       }
     }
-  ]
+  ],
+    "outputs": {
+    "vm-fqdn": {
+      "type": "string",
+      "value": "[reference(variables('publicIpName')).dnsSettings.fqdn]"
+    }
+  }
 }
